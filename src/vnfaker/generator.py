@@ -12,6 +12,7 @@ from .commonUtils import CommonUtils, str_clean, change_year, date_time_ad
 class Generator:
 
     def __init__(self):
+        self.username_value = None
         self.email_value = None
         self.district_name = None
         self.ward_name = None

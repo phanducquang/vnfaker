@@ -5,15 +5,15 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="vnfaker",
-    version="0.0.1",
+    version="0.0.2",
     author="Phan Duc Quang",
     author_email="phanducquang07@gmail.com",
     description="vnfaker is a Python package that generates fake data about fullname, address, phone, date_of_birth,... in Viet Nam.",
     long_description=README,
     long_description_content_type="text/markdown",
-    url="package URL",
+    url="https://github.com/phanducquang/vnfaker",
     project_urls={
-        "Bug Tracker": "URL",
+        "Bug Tracker": "https://github.com/phanducquang/vnfaker/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
