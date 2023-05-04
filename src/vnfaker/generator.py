@@ -175,9 +175,9 @@ class Generator:
     def address(self):
         if self.__address_value is None:
             address_value_obj = random.choice(CommonUtils.address)
-            self.__province_name = address_value_obj.get("__province_name")
-            self.__ward_name = address_value_obj.get("__ward_name")
-            self.__district_name = address_value_obj.get("__district_name")
+            self.__province_name = address_value_obj.get("province_name")
+            self.__ward_name = address_value_obj.get("ward_name")
+            self.__district_name = address_value_obj.get("district_name")
             self.__address_value = "{}, {}, {}".format(self.__ward_name,
                                                        self.__district_name,
                                                        self.__province_name)
@@ -205,7 +205,7 @@ class Generator:
 
     def known_location(self):
         if self.__known_location_value is None:
-            self.__known_location_value = [random.choice(CommonUtils.address).get("__province_name") for _ in
+            self.__known_location_value = [random.choice(CommonUtils.address).get("province_name") for _ in
                                            range(random.randint(1, 5))]
         return self.__known_location_value
 

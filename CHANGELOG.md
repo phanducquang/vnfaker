@@ -20,3 +20,11 @@ Fix release
 ### Fixed
 
 - Fix `unidecode` import
+
+## [0.0.4] - 2023-05-04
+
+Fix release
+
+### Fixed
+
+- Fix `address` generator
