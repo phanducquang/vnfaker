@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="vnfaker",
-    version="0.0.2",
+    version="0.0.3",
     author="Phan Duc Quang",
     author_email="phanducquang07@gmail.com",
     description="vnfaker is a Python package that generates fake data about fullname, address, phone, date_of_birth,... in Viet Nam.",
@@ -26,5 +26,6 @@ setuptools.setup(
     python_requires=">=3.7",
     install_requires=[
         "orjson>=3.8.10",
+        "unidecode>=1.3.6"
     ],
 )

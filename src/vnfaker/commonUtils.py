@@ -66,6 +66,7 @@ class CommonUtils:
     provinces_filename = "flat-divisions.json"
     occupation_filename = "occupation.name"
     sentence_filename = "sentence.txt"
+    religion_filename = "religion.name"
 
     lastNames = _read_file(lastname_filename, "person")
     maleNames = _read_file(male_filename, "person")
@@ -74,6 +75,7 @@ class CommonUtils:
     femaleMidNames = _read_file(female_mid_filename, "person")
     companyNames = _read_file(company_filename, "company")
     occupationNames = _read_file(occupation_filename, "occupation")
+    religionNames = _read_file(religion_filename, "religion")
     sentencesValue = _read_file(sentence_filename, "sentence")
     FLAT_DIVISIONS_JSON_PATH = Path(__file__).parent / 'data' / 'provinces' / 'flat-divisions.json'
 
