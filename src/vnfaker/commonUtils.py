@@ -1,4 +1,5 @@
 import random
+import math
 from calendar import timegm
 from datetime import date, datetime
 from datetime import timedelta
@@ -49,6 +50,44 @@ def date_time_ad(
     return datetime(1970, 1, 1, tzinfo=tzinfo) + timedelta(seconds=ts)
 
 
+def random_circumference_point(center_point, radius, random_fn=random.random):
+    def to_radians(degrees):
+        return degrees * math.pi / 180.0
+
+    def to_degrees(radians):
+        return radians * 180.0 / math.pi
+
+    EARTH_RADIUS = 6371000  # meters
+    TWO_PI = 2 * math.pi
+    THREE_PI = 3 * math.pi
+
+    sin_lat = math.sin(to_radians(center_point['latitude']))
+    cos_lat = math.cos(to_radians(center_point['latitude']))
+
+    # Random bearing (direction out 360 degrees)
+    print(random_fn())
+    bearing = random_fn() * TWO_PI
+    sin_bearing = math.sin(bearing)
+    cos_bearing = math.cos(bearing)
+
+    # Theta is the approximated angular distance
+    theta = radius / EARTH_RADIUS
+    sin_theta = math.sin(theta)
+    cos_theta = math.cos(theta)
+
+    r_latitude = math.asin(sin_lat * cos_theta + cos_lat * sin_theta * cos_bearing)
+
+    r_longitude = (
+            to_radians(center_point['longitude'])
+            + math.atan2(sin_bearing * sin_theta * cos_lat, cos_theta - sin_lat * math.sin(r_latitude))
+    )
+
+    # Normalize longitude L such that -PI < L < +PI
+    r_longitude = ((r_longitude + THREE_PI) % TWO_PI) - math.pi
+
+    return {"latitude": to_degrees(r_latitude), "longitude": to_degrees(r_longitude)}
+
+
 def _read_file(filename, resource):
     resource_name = "vnfaker.data.{}".format(resource)
     with resources.open_text(resource_name, filename) as f:
@@ -80,7 +119,17 @@ class CommonUtils:
     FLAT_DIVISIONS_JSON_PATH = Path(__file__).parent / 'data' / 'provinces' / 'flat-divisions.json'
 
     address = orjson.loads(FLAT_DIVISIONS_JSON_PATH.read_bytes())
-    domainEmail = ['gmail.com', 'outlook.com', 'yandex.com', 'hotmail.com', 'icloud.com', 'yahoo.com']
+    domainEmail = ['gmail.com',
+                   'outlook.com',
+                   'yandex.com',
+                   'hotmail.com',
+                   'icloud.com',
+                   'yahoo.com',
+                   "abc.com",
+                   'vinaconex.com.vn',
+                   'zoho.com',
+                   'abcd.com',
+                   'apollo.edu.vn']
 
 
 def datetime_to_timestamp(dt: date) -> int:

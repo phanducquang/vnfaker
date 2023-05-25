@@ -28,3 +28,11 @@ Fix release
 ### Fixed
 
 - Fix `address` generator
+
+## [0.0.5] - 2023-05-25
+
+Fix release
+
+### Added
+
+- Support `address (geo)` generator

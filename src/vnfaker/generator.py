@@ -6,12 +6,15 @@ from typing import Optional
 
 from unidecode import unidecode
 
-from .commonUtils import CommonUtils, str_clean, change_year, date_time_ad
+from .commonUtils import CommonUtils, str_clean, change_year, date_time_ad, random_circumference_point
 
 
 class Generator:
 
     def __init__(self):
+        self.__radius_random = None
+        self.__province_long = None
+        self.__province_lat = None
         self.__religion_value = None
         self.__username_value = None
         self.__email_value = None
@@ -172,15 +175,24 @@ class Generator:
             return datetime.fromisoformat(self.__birth_date.isoformat()).timestamp() * 1000
         return self.__birth_date
 
-    def address(self):
+    def address(self, is_geo: bool = False):
         if self.__address_value is None:
             address_value_obj = random.choice(CommonUtils.address)
             self.__province_name = address_value_obj.get("province_name")
+            self.__province_lat = address_value_obj.get("province_lat")
+            self.__province_long = address_value_obj.get("province_long")
+            self.__radius_random = address_value_obj.get("radius_random")
             self.__ward_name = address_value_obj.get("ward_name")
             self.__district_name = address_value_obj.get("district_name")
             self.__address_value = "{}, {}, {}".format(self.__ward_name,
                                                        self.__district_name,
                                                        self.__province_name)
+        if is_geo:
+            center_point = {
+                "latitude": self.__province_lat,
+                "longitude": self.__province_long
+            }
+            return random_circumference_point(center_point, self.__radius_random)
         return self.__address_value
 
     def address_province(self):
@@ -203,10 +215,11 @@ class Generator:
             self.__company_value = random.choice(CommonUtils.companyNames)
         return self.__company_value
 
-    def known_location(self):
+    def known_location(self,
+                       number_location: int = 5):
         if self.__known_location_value is None:
             self.__known_location_value = [random.choice(CommonUtils.address).get("province_name") for _ in
-                                           range(random.randint(1, 5))]
+                                           range(random.randint(1, number_location))]
         return self.__known_location_value
 
     def occupation(self):
